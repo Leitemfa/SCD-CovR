@@ -1,0 +1,66 @@
+---
+title: "SCD-CovR_ML"
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+This is a short tutorial on how to run the SCD-CovR for my data. 
+
+First I will check the empirical example (potato application)
+
+#Loading the data
+```{r}
+load("G:/My Drive/R scripts/SCD-CovR/empirical example/empirical_results.Rdata")
+```
+
+Now let's dive into the existing code.
+First it asks to install the package `RGCCA`. It can be done automatically by loading the script or you can use the following:
+
+```{r}
+install.packages("RGCCA")
+```
+
+The first chunck of code from the `potato_application.R` script is to load data from the personal folders of the author
+
+```{r}
+setwd("C:\\Users\\park\\Desktop\\paper2 writing for now\\oct02_new_simulation\\")
+
+setwd("../potato_application/")
+potato <- read.table("./potato.txt", sep = ",")
+
+setwd("C:\\Users\\park\\Desktop\\paper2 writing for now\\paper2_multicore_results_complete\\")
+Rcpp::sourceCpp("./sparseSCA.cpp")
+Rcpp::sourceCpp("./updateW.cpp")
+
+setwd("C:\\Users\\park\\Desktop\\paper2 writing for now\\oct02_new_simulation\\")
+source("./evaluation_criteria.R")
+source("./sscovr_looking_in.R")
+source("./spcovrdata.R")
+source("./cv_eigenvector_general.R")
+source("./findLasso_sscovr_differentpenalties_adding_tryCatch_to_july10_version.R")
+source("./findLasso_SCaDs.R")
+source("./scad_cv.R")
+source("./cv_eigenvector_sgcca.R")
+
+# setting back the working directory
+setwd("C:\\Users\\park\\Desktop\\Rstudio Github - Copy\\Project2_SPCovR\\paper2_writing\\")
+
+```
+
+Making the adjustments for the current github folder organization we will have:
+
+```{r}
+Rcpp::sourceCpp("./functions/sparseSCA.cpp")
+Rcpp::sourceCpp("./functions/updateW.cpp")
+
+source("./simulation study/compile evaluate results/evaluation_criteria.R")
+source("./sscovr_looking_in.R")
+source("./spcovrdata.R")
+source("./cv_eigenvector_general.R")
+source("./findLasso_sscovr_differentpenalties_adding_tryCatch_to_july10_version.R")
+source("./findLasso_SCaDs.R")
+source("./scad_cv.R")
+source("./cv_eigenvector_sgcca.R")
+```
+
